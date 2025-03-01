@@ -20,11 +20,17 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { useUser } from "@/context/UserContext";
 
+import { useRouter, useSearchParams } from "next/navigation";
+
 export default function RegisterForm() {
 	const form = useForm({
 		resolver: zodResolver(registrationSchema),
 	});
 	const { setIsLoading } = useUser();
+
+	const searchParams = useSearchParams();
+	const redirect = searchParams.get("redirectPath");
+	const router = useRouter();
 
 	const {
 		formState: { isSubmitting },
@@ -39,8 +45,11 @@ export default function RegisterForm() {
 			const res = await registerUser(data);
 			setIsLoading(true);
 
-			if (res?.success) toast.success(res?.message);
-			else toast.error(res?.message);
+			if (res?.success) {
+				toast.success(res?.message);
+				if (redirect) router.push(redirect);
+				else router.push("/");
+			} else toast.error(res?.message);
 		} catch (err: any) {
 			console.error(err);
 		}
@@ -141,6 +150,30 @@ export default function RegisterForm() {
 									) : (
 										<FormMessage />
 									)}
+								</FormItem>
+							)}
+						/>
+						{/* Select Field for Role */}
+						<FormField
+							control={form.control}
+							name="role"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel className="text-gray-300">Role</FormLabel>
+									<FormControl>
+										<select
+											{...field}
+											className="bg-gray-400 border-gray-300 focus:border-primary focus:ring-primary p-2 w-full"
+										>
+											<option value="" disabled>
+												Select Role
+											</option>
+											{/* <option value="admin">Admin</option> */}
+											<option value="user">Customer</option>
+											<option value="provider">Meal Provider</option>
+										</select>
+									</FormControl>
+									<FormMessage />
 								</FormItem>
 							)}
 						/>

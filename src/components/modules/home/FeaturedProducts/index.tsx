@@ -20,7 +20,7 @@ const FeaturedProducts = async () => {
 						</Button>
 					</Link>
 				</div>
-				<TabwiseProducts products={products} />
+				{/* <TabwiseProducts products={products} /> */}
 				{/* <div className="grid grid-cols-5 gap-4 mt-10">
 					{products?.slice(0, 5).map((product: IProduct, idx: number) => (
 						<ProductCard key={idx} product={product} />
