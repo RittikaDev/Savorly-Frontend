@@ -2,7 +2,7 @@
 
 import Brand from "@/app/assets/svgs/Brand.png";
 import { Button } from "../ui/button";
-import { Heart, LogOut, ShoppingBag } from "lucide-react";
+import { LogOut, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -35,11 +35,13 @@ export default function Navbar() {
   return (
     <header className="border-b w-full">
       <div className="container flex justify-between items-center mx-auto h-16 px-3">
-        <h1 className="text-2xl font-black flex items-center gap-1">
-          {/* <Logo /> */}
-          <Image src={Brand} alt="Logo" width={60} height={60} />
-          Elite Wear
-        </h1>
+        <Link href="/">
+          <h1 className="text-2xl font-black flex items-center gap-1">
+            {/* <Logo /> */}
+            <Image src={Brand} alt="Logo" width={60} height={60} />
+            Savorly
+          </h1>
+        </Link>
         <div className="max-w-md flex-grow">
           <input
             type="text"
@@ -48,14 +50,25 @@ export default function Navbar() {
           />
         </div>
         <nav className="flex gap-2">
-          <Button variant="outline" className="rounded-full p-0 size-10">
+          {/* <Button variant="outline" className="rounded-full p-0 size-10">
             <Heart />
-          </Button>
-          <Link href="/cart">
-            <Button variant="outline" className="rounded-full p-0 size-10">
-              <ShoppingBag />
-            </Button>
-          </Link>
+          </Button> */}
+          {user?.email ? (
+            <>
+              <Link href="/find-meals">
+                <Button variant="outline" className="">
+                  Find Meals
+                </Button>
+              </Link>
+              <Link href="/cart">
+                <Button variant="outline" className="rounded-full p-0 size-10">
+                  <ShoppingBag />
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
 
           {user?.email ? (
             <>

@@ -1,9 +1,8 @@
-import { IProduct } from "@/types";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { IMeal } from "@/types";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { addCoupon } from "@/services/cart";
 
-export interface CartProduct extends IProduct {
+export interface CartProduct extends IMeal {
   orderQuantity: number;
 }
 
@@ -11,59 +10,24 @@ interface InitialState {
   products: CartProduct[];
   city: string;
   shippingAddress: string;
-  shopId: string;
-  coupon: {
-    code: string;
-    discountAmount: number;
-    isLoading: boolean; // NEEDS TO BE HANDLED MANUALLY SINCE NOT USING RTK-QUERY
-    error: string; // NEEDS TO BE HANDLED MANUALLY SINCE NOT USING RTK-QUERY
-  };
+  mealProviderId: string;
 }
 
 const initialState: InitialState = {
   products: [],
   city: "",
   shippingAddress: "",
-  shopId: "",
-  coupon: {
-    code: "",
-    discountAmount: 0,
-    isLoading: false,
-    error: "",
-  },
+  mealProviderId: "",
 };
-
-export const fetchCoupon = createAsyncThunk(
-  "cart/fetchCoupon",
-  async ({
-    couponCode,
-    subTotal,
-    shopId,
-  }: {
-    couponCode: string;
-    subTotal: number;
-    shopId: string;
-  }) => {
-    try {
-      // MAIN SERVICE(API) CALL, AND BASED ON RESPONSE(SUCCESS, ERROR) IT WILL GOTO extraReducers
-      const res = await addCoupon(couponCode, subTotal, shopId);
-
-      if (!res.success) throw new Error(res.message);
-
-      return res;
-    } catch (err: any) {
-      console.log(err);
-      throw new Error(err.message);
-    }
-  }
-);
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     addProduct: (state, action) => {
-      if (state.products.length === 0) state.shopId = action.payload.shop._id;
+      console.log(action.payload);
+      if (state.products.length === 0)
+        state.mealProviderId = action.payload.providerId;
 
       const productToAdd = state.products.find(
         (product) => product._id === action.payload._id
@@ -71,7 +35,7 @@ const cartSlice = createSlice({
 
       if (productToAdd) {
         productToAdd.orderQuantity += 1;
-        return; // THIS IS MANDOTARY OTHERWISE, BELOW LINE WILL ALSO BE RUN
+        return; // THIS IS MANDOTARY OTHERWISE, BELOW LINE WILL ALSO RUN
       }
       // ...action.payload => IS THE NEWLY ADDED PRODUCT, ONLY ONE OBJECT
       state.products.push({ ...action.payload, orderQuantity: 1 }); // FIRST TIME WHEN SIMILAR PRODUCT IS NOT AVAILABLE IN THE CART, IT WILL ADD A NEW PROPERTY NAMED orderQuantity(NOT AVAILABLE BEFORE), AND FROM NEXT TIME IT WILL JUST INCREMENT BY ONE
@@ -113,24 +77,6 @@ const cartSlice = createSlice({
       state.shippingAddress = "";
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(fetchCoupon.pending, (state) => {
-      state.coupon.isLoading = true;
-      state.coupon.error = "";
-    });
-    builder.addCase(fetchCoupon.rejected, (state, action) => {
-      state.coupon.isLoading = false;
-      state.coupon.error = action.error.message as string;
-      state.coupon.code = "";
-      state.coupon.discountAmount = 0;
-    });
-    builder.addCase(fetchCoupon.fulfilled, (state, action) => {
-      state.coupon.isLoading = false;
-      state.coupon.error = "";
-      state.coupon.code = action.payload.data.coupon.code;
-      state.coupon.discountAmount = action.payload.data.discountAmount;
-    });
-  },
 });
 
 //* Products
@@ -152,7 +98,7 @@ export const orderSelector = (state: RootState) => {
 };
 
 export const shopSelector = (state: RootState) => {
-  return state.cart.shopId;
+  return state.cart.mealProviderId;
 };
 
 //* Payment
@@ -160,14 +106,9 @@ export const shopSelector = (state: RootState) => {
 export const subTotalSelector = (state: RootState) => {
   // acc => IMMEDIATE PREVIOUS VALUE
   return state.cart.products.reduce((acc, product) => {
-    if (product.offerPrice) {
-      console.log(product.offerPrice);
-      return acc + product.offerPrice * product.orderQuantity;
-    } else {
-      console.log(acc);
-      console.log(product.price, "Price");
-      return acc + product.price * product.orderQuantity;
-    }
+    console.log(acc);
+    console.log(product.price, "Price");
+    return acc + product.price * product.orderQuantity;
   }, 0);
 };
 
@@ -192,18 +133,10 @@ export const shippingCostSelector = (state: RootState) => {
 export const grandTotalSelector = (state: RootState) => {
   const subTotal = subTotalSelector(state);
   const shippingCost = shippingCostSelector(state);
-  const discountAmount = discountAmountSelector(state);
 
-  return subTotal - discountAmount + shippingCost;
+  return subTotal + shippingCost;
 };
 
-export const couponSelector = (state: RootState) => {
-  return state.cart.coupon;
-};
-
-export const discountAmountSelector = (state: RootState) => {
-  return state.cart.coupon.discountAmount;
-};
 //* Address
 
 export const citySelector = (state: RootState) => {

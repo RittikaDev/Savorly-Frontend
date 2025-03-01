@@ -1,5 +1,5 @@
 import ManageProducts from "@/components/modules/shop/product";
-import { getAllProducts } from "@/services/Product";
+import { getAllMeals } from "@/services/Product";
 
 const ManageProductsPage = async ({
   searchParams,
@@ -8,7 +8,7 @@ const ManageProductsPage = async ({
 }) => {
   const { page } = await searchParams;
 
-  const { data, meta } = await getAllProducts(page, "3");
+  const { data, meta } = await getAllMeals(page, "3");
   return (
     <div>
       <ManageProducts products={data} meta={meta} />

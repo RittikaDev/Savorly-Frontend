@@ -3,7 +3,7 @@ import MealDetails from "@/components/modules/products/MealDetails";
 import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
 import { getSingleProduct } from "@/services/Product";
 
-const MealDetailsPage = async ({
+const MealDeatilspage = async ({
   params,
 }: {
   params: Promise<{ productId: string }>;
@@ -23,4 +23,4 @@ const MealDetailsPage = async ({
   );
 };
 
-export default MealDetailsPage;
+export default MealDeatilspage;

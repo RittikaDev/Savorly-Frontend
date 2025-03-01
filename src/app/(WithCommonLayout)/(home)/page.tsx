@@ -6,16 +6,16 @@ import Intro from "@/components/modules/home/Intro";
 import TopBrands from "@/components/modules/home/TopBrands";
 
 const HomePage = () => {
-	return (
-		<div>
-			<HeroSection />
-			<Intro />
-			<Category />
-			<FeaturedProducts />
-			<FlashSale />
-			<TopBrands />
-		</div>
-	);
+  return (
+    <div>
+      <HeroSection />
+      <Intro />
+      <Category />
+      <FeaturedProducts searchParams={Promise.resolve({})} />
+      <FlashSale />
+      <TopBrands />
+    </div>
+  );
 };
 
 export default HomePage;

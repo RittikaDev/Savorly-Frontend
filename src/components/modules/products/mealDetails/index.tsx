@@ -3,7 +3,7 @@ import { IProduct } from "@/types";
 import { Star } from "lucide-react";
 import Image from "next/image";
 
-const ProductDetails = ({ product }: { product: IProduct }) => {
+const MealDetails = ({ product }: { product: IProduct }) => {
   return (
     <div className="grid grid-cols-2 gap-4 border border-white p-4 rounded-md my-5 shadow-sm">
       <div>
@@ -72,4 +72,4 @@ const ProductDetails = ({ product }: { product: IProduct }) => {
   );
 };
 
-export default ProductDetails;
+export default MealDetails;

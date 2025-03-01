@@ -1,22 +1,23 @@
-import ProductCard from "@/components/ui/core/ProductCard";
-import { IProduct } from "@/types";
+import { IMeal } from "@/types";
 import FilterSidebar from "./filterSidebar";
+import MealCard from "@/components/ui/core/MealCard";
 
-const AllProducts = ({ products }: { products: IProduct[] }) => {
-	return (
-		<div className="flex gap-8 my-10">
-			<div className="w-full max-w-sm">
-				<FilterSidebar />
-			</div>
-			<div>
-				<div className="grid grid-cols-3 gap-8">
-					{products?.map((product: IProduct, idx: number) => (
-						<ProductCard key={idx} product={product} />
-					))}
-				</div>
-			</div>
-		</div>
-	);
+const AllMeals = ({ meals }: { meals: IMeal[] }) => {
+  console.log("all roducts", meals);
+  return (
+    <div className="flex gap-8 my-10">
+      <div className="w-full max-w-sm">
+        <FilterSidebar />
+      </div>
+      <div>
+        <div className="grid grid-cols-3 gap-8">
+          {meals?.map((meal: IMeal, idx: number) => (
+            <MealCard key={idx} meal={meal} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default AllProducts;
+export default AllMeals;

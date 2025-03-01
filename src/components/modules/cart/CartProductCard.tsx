@@ -11,7 +11,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { Minus, Plus, Trash } from "lucide-react";
 import Image from "next/image";
 
-export default function CartProductCard({ product }: { product: CartProduct }) {
+export default function CartMealCard({ product }: { product: CartProduct }) {
   const dispatch = useAppDispatch();
 
   const handleIncrementQuantity = (id: string) => {
