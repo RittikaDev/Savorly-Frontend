@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import EliteContainer from "@/components/ui/core/EliteContainer";
+import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
 // import ProductCard from "@/components/ui/core/ProductCard";
 import { getAllProducts } from "@/services/Product";
 // import { IProduct } from "@/types";
@@ -11,7 +11,7 @@ const FeaturedProducts = async () => {
 
 	return (
 		<div className="bg-white bg-opacity-50 pt-6 pb-8">
-			<EliteContainer className="my-16">
+			<SavorlyContainer className="my-16">
 				<div className="flex items-center justify-between ">
 					<h2 className="text-3xl font-bold">Featured Products</h2>
 					<Link href="/products">
@@ -26,7 +26,7 @@ const FeaturedProducts = async () => {
 						<ProductCard key={idx} product={product} />
 					))}
 				</div> */}
-			</EliteContainer>
+			</SavorlyContainer>
 		</div>
 	);
 };

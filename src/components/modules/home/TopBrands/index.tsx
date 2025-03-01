@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import EliteContainer from "@/components/ui/core/EliteContainer";
+import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
 import { getAllBrands } from "@/services/Brand";
 import { IBrand } from "@/types";
 import Image from "next/image";
@@ -9,7 +9,7 @@ const TopBrands = async () => {
 	const { data: brands } = await getAllBrands();
 
 	return (
-		<EliteContainer className="my-36">
+		<SavorlyContainer className="my-36">
 			<div className="flex items-center justify-between">
 				<h2 className="text-3xl font-bold">Top Brands</h2>
 				<Link href="/products">
@@ -33,7 +33,7 @@ const TopBrands = async () => {
 					</div>
 				))}
 			</div>
-		</EliteContainer>
+		</SavorlyContainer>
 	);
 };
 

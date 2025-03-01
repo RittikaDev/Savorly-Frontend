@@ -1,6 +1,6 @@
 import ProductBanner from "@/components/modules/products/banner";
 import ProductDetails from "@/components/modules/products/productDetails";
-import EliteContainer from "@/components/ui/core/EliteContainer";
+import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
 import { getSingleProduct } from "@/services/Product";
 
 const ProductDetailsPage = async ({
@@ -13,13 +13,13 @@ const ProductDetailsPage = async ({
 	const { data: product } = await getSingleProduct(productId);
 
 	return (
-		<EliteContainer>
+		<SavorlyContainer>
 			<ProductBanner
 				title="Product Details"
 				path="Home - Products - Product Details"
 			/>
 			<ProductDetails product={product} />
-		</EliteContainer>
+		</SavorlyContainer>
 	);
 };
 

@@ -1,4 +1,4 @@
-import EliteContainer from "@/components/ui/core/EliteContainer";
+import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
 
 import SiteTitle from "./SiteTitle";
 import ImageSliders from "./ImageSliders";
@@ -6,7 +6,7 @@ import BannerRightSection from "./BannerRightSection";
 
 const HeroSection = () => {
 	return (
-		<EliteContainer>
+		<SavorlyContainer>
 			<section className="flex h-screen w-full">
 				{/* LEFT SECTION */}
 				<div className="w-1/2  flex flex-col px-12 py-8 relative">
@@ -20,7 +20,7 @@ const HeroSection = () => {
 				{/* RIGHT SECTION */}
 				<BannerRightSection />
 			</section>
-		</EliteContainer>
+		</SavorlyContainer>
 	);
 };
 

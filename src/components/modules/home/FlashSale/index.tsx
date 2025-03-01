@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import EliteContainer from "@/components/ui/core/EliteContainer";
+import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
 import ProductCard from "@/components/ui/core/ProductCard";
 import { getFlashSaleProducts } from "@/services/FlashSale";
 import { IProduct } from "@/types";
@@ -11,7 +11,7 @@ const FlashSale = async () => {
 
 	return (
 		<div className=" bg-white bg-opacity-50 pt-6 pb-8">
-			<EliteContainer className="my-16">
+			<SavorlyContainer className="my-16">
 				<div className="flex items-center justify-between ">
 					<div className="flex items-center gap-8">
 						<h2 className="text-3xl font-bold">Flash Sale</h2>
@@ -29,7 +29,7 @@ const FlashSale = async () => {
 						<ProductCard key={idx} product={product} />
 					))}
 				</div>
-			</EliteContainer>
+			</SavorlyContainer>
 		</div>
 	);
 };
