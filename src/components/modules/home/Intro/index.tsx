@@ -15,7 +15,7 @@ import Slider5 from "@/assets/hero_section/slider5.jpg";
 const Intro = async () => {
   const { data: categories } = await getAllCategories();
 
-  // console.log(categories);
+  console.log(categories);
 
   return (
     <SavorlyContainer className="my-20">

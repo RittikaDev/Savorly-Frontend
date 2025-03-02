@@ -20,23 +20,62 @@ import { useUser } from "@/context/UserContext";
 import { createMealMenu } from "@/services/Shop";
 import { IMeal } from "@/types";
 
+const DIETARY_OPTIONS: string[] = [
+  "Vegan",
+  "Veg",
+  "Non Veg",
+  "Gluten Free",
+  "Keto",
+];
+const CUISINE_OPTIONS: string[] = [
+  "Mexican",
+  "Italian",
+  "Indian",
+  "Chinese",
+  "Japanese",
+  "Thai",
+];
+const PORTION_OPTIONS: string[] = ["Small", "Medium", "Large"];
+
 export default function CreateMealMenu() {
   const { user } = useUser();
 
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
+
+  const [selectedDietaryPreferences, setSelectedDietaryPreferences] = useState<
+    string[]
+  >([]);
+  const [selectedCuisineTypes, setSelectedCuisineTypes] = useState<string>("");
+  const [selectedPortionSize, setSelectedPortionSize] = useState<string>("");
+
   const form = useForm();
   const {
     formState: { isSubmitting },
   } = form;
 
+  const toggleSelection = (
+    value: string,
+    setter: any,
+    selectedValues: string[]
+  ) => {
+    setter(
+      selectedValues.includes(value)
+        ? selectedValues.filter((item) => item !== value)
+        : [...selectedValues, value]
+    );
+  };
+
   //   console.log(user, setIsLoading);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const dietaryPreferences = data?.dietaryPreferences
-      .split(",")
-      .map((preference: string) => preference.trim())
-      .filter((preference: string) => preference !== "");
+    // const dietaryPreferences = data?.dietaryPreferences
+    //   .split(",")
+    //   .map((preference: string) => preference.trim())
+    //   .filter((preference: string) => preference !== "");
+    // console.log(selectedDietaryPreferences);
+    const dietaryPreferences = selectedDietaryPreferences;
+
     const ingredients = data?.ingredients
       .split(",")
       .map((ing: string) => ing.trim())
@@ -46,9 +85,9 @@ export default function CreateMealMenu() {
       name: data.name,
       description: data.description,
       ingredients,
-      portionSize: data.portionSize,
+      portionSize: selectedPortionSize,
       price: Number(data.price),
-      cuisineType: data.cuisineType,
+      cuisineType: selectedCuisineTypes,
       dietaryPreferences,
       availability: data.availability === "true",
       image: imageFiles.map((file) => URL.createObjectURL(file)),
@@ -59,7 +98,6 @@ export default function CreateMealMenu() {
     try {
       if (user?.userId) {
         const res = await createMealMenu(user.userId, mealData);
-        console.log(res);
         if (res.success) toast.success(res.message);
       } else toast.error("User ID is missing");
     } catch (err) {
@@ -69,7 +107,7 @@ export default function CreateMealMenu() {
   };
 
   return (
-    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 my-5">
+    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-3xl p-5 my-5">
       <h1 className="text-xl font-semibold">Create Meal Menu</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -113,7 +151,7 @@ export default function CreateMealMenu() {
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="portionSize"
               render={({ field }) => (
@@ -125,7 +163,7 @@ export default function CreateMealMenu() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="price"
@@ -139,7 +177,76 @@ export default function CreateMealMenu() {
                 </FormItem>
               )}
             />
-            <FormField
+
+            <div>
+              <div className="flex flex-wrap space-x-4 items-center">
+                <FormLabel>Dietary Preferences</FormLabel>
+                {DIETARY_OPTIONS.map((option) => (
+                  <label key={option} className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedDietaryPreferences.includes(option)}
+                      onChange={() =>
+                        toggleSelection(
+                          option,
+                          setSelectedDietaryPreferences,
+                          selectedDietaryPreferences
+                        )
+                      }
+                    />
+                    {option}
+                  </label>
+                ))}
+              </div>
+              <div className="mt-4">
+                <label htmlFor="selectedCuisines" className="block">
+                  Selected Cuisines
+                </label>
+                <div className="flex flex-wrap space-x-2 mt-2">
+                  {selectedDietaryPreferences.map((option, index) => (
+                    <span
+                      key={index}
+                      className="inline-block bg-gray-200 text-sm px-3 py-1 rounded-full"
+                    >
+                      {option}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap space-x-4 items-center">
+              <FormLabel>Cuisine Type</FormLabel>
+              {CUISINE_OPTIONS.map((option) => (
+                <label key={option} className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="cuisineType"
+                    value={option}
+                    checked={selectedCuisineTypes === option}
+                    onChange={() => setSelectedCuisineTypes(option)}
+                  />
+                  {option}
+                </label>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap space-x-4 items-center">
+              <FormLabel>Portion Size</FormLabel>
+              {PORTION_OPTIONS.map((option) => (
+                <label key={option} className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="portionSize"
+                    value={option}
+                    checked={selectedPortionSize === option}
+                    onChange={() => setSelectedPortionSize(option)}
+                  />
+                  {option}
+                </label>
+              ))}
+            </div>
+            {/* <FormField
               control={form.control}
               name="cuisineType"
               render={({ field }) => (
@@ -164,7 +271,7 @@ export default function CreateMealMenu() {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name="availability"

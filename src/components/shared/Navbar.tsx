@@ -30,6 +30,7 @@ export default function Navbar() {
 
   const handleLogOut = () => {
     logout();
+    router.push("/login");
     setIsLoading(true);
     if (protectedRoutes.some((route) => pathname.match(route)))
       // CHECK IF PATHNAME MATCHES WITH ANY PROTECTED ROUTES

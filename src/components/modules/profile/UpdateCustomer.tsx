@@ -48,6 +48,32 @@ export function ManageProfile() {
     ratings: 0,
   });
 
+  const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>([]);
+
+  const options = [
+    "Mexican",
+    "Italian",
+    "Indian",
+    "Chinese",
+    "Japanese",
+    "Thai",
+  ];
+
+  useEffect(() => {
+    if (mealProviderData && mealProviderData.cuisineSpecialties)
+      setSelectedSpecialties(mealProviderData.cuisineSpecialties);
+  }, [mealProviderData]);
+
+  const handleChange = (e: any) => {
+    const value = e.target.value;
+    if (e.target.checked)
+      setSelectedSpecialties([...selectedSpecialties, value]);
+    else
+      setSelectedSpecialties(
+        selectedSpecialties.filter((item) => item !== value)
+      );
+  };
+
   const [passwordData, setPasswordData] = useState({
     oldPassword: "",
     newPassword: "",
@@ -122,22 +148,50 @@ export function ManageProfile() {
     setPasswordData((prev) => ({ ...prev, [id]: value }));
   };
 
+  const [isUpdating, setIsUpdating] = useState(false); // Flag to track updates
+
   const updateProviderProfile = async () => {
-    const orderLoading = toast.loading("Updating Profile...");
+    // const orderLoading = toast.loading("Updating Profile...");
 
     try {
-      const result = isExisting
-        ? await updateMealProvider(user?.userId, mealProviderData)
-        : await createMealProvider(user?.userId, mealProviderData);
-      console.log(result);
-      toast.success(result.message, { id: orderLoading });
+      setIsUpdating(true); // Indicate update is in progress
+
+      setMealProviderData((prevData) => ({
+        ...prevData,
+        cuisineSpecialties: selectedSpecialties,
+      }));
     } catch (error) {
       console.error("Error updating profile:", error);
-      toast.error("Failed to update password. Please try again.", {
-        id: orderLoading,
-      });
+      // toast.error("Failed to update profile. Please try again.", {
+      //   id: orderLoading,
+      // });
     }
   };
+
+  // ✅ Trigger API call after `mealProviderData` updates
+  useEffect(() => {
+    if (isUpdating) {
+      (async () => {
+        const orderLoading = toast.loading("Updating Profile...");
+
+        try {
+          const result = isExisting
+            ? await updateMealProvider(user?.userId, mealProviderData)
+            : await createMealProvider(user?.userId, mealProviderData);
+
+          console.log("API response:", result);
+          toast.success(result.message, { id: orderLoading });
+        } catch (error) {
+          console.error("Error updating profile:", error);
+          toast.error("Failed to update profile. Please try again.", {
+            id: orderLoading,
+          });
+        } finally {
+          setIsUpdating(false); // Reset update flag
+        }
+      })();
+    }
+  }, [mealProviderData, isUpdating]);
   const updateProfileInfo = async () => {
     const orderLoading = toast.loading("Updating Profile...");
 
@@ -358,15 +412,42 @@ export function ManageProfile() {
               </div>
 
               {/* Cuisine Specialties */}
-              <div className="space-y-1">
-                <Label htmlFor="cuisineSpecialties">Cuisine Specialties</Label>
-                <Input
-                  id="cuisineSpecialties"
-                  type="text"
-                  value={mealProviderData.cuisineSpecialties.join(", ")} // Join array elements into a comma-separated string
-                  onChange={handleInputMealChange}
-                  placeholder="Indian, Chinese..."
-                />
+              <div className="space-y-4">
+                <label htmlFor="cuisineSpecialties">Cuisine Specialties</label>
+                <div className="flex flex-wrap space-x-4 items-center">
+                  {options.map((option, index) => (
+                    <div key={index} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id={option}
+                        value={option}
+                        checked={selectedSpecialties.includes(option)}
+                        onChange={handleChange}
+                        className="h-4 w-4"
+                        disabled={selectedSpecialties.includes(option)} // Disable already selected options
+                      />
+                      <label htmlFor={option} className="ml-2 text-sm">
+                        {option}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-4">
+                  <label htmlFor="selectedCuisines" className="block">
+                    Selected Cuisines
+                  </label>
+                  <div className="flex flex-wrap space-x-2 mt-2">
+                    {selectedSpecialties.map((option, index) => (
+                      <span
+                        key={index}
+                        className="inline-block bg-gray-200 text-sm px-3 py-1 rounded-full"
+                      >
+                        {option}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               {/* Pricing */}
