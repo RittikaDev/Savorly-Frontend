@@ -139,9 +139,14 @@ const CreateTrackOrder = async () => {
           {Orders.map(
             (booking: {
               id: string;
-              name: string;
-              date: string;
-              time: string;
+              mealId: {
+                name: string;
+                cuisineType: string;
+                portionSize: string;
+              };
+              spiceLevel: string[];
+              quantity: number[];
+              totalPrice: number;
               status: "Confirmed" | "Pending" | "Cancelled";
             }) => (
               <TableRow key={booking.id}>
