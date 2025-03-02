@@ -16,7 +16,7 @@ const FeaturedProducts = async ({
   const query = await searchParams;
 
   const { data: meals } = await getAllMeals(undefined, undefined, query);
-  console.log(meals);
+  // console.log(meals);
   return (
     <div className="bg-white bg-opacity-50 pt-6 pb-8">
       <SavorlyContainer className="my-16">

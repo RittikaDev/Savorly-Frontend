@@ -1,5 +1,5 @@
 export interface IMeal {
-  _id: string;
+  _id?: string;
   name: string;
   description: string;
   ingredients: string[];
@@ -7,7 +7,7 @@ export interface IMeal {
   price: number;
   dietaryPreferences: string[];
   cuisineType: string;
-  providerId: string;
+  providerId?: string;
   availability: boolean;
   rating: number;
   image: string[];
