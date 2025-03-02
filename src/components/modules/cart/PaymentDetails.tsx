@@ -26,14 +26,12 @@ import { toast } from "sonner";
 export default function PaymentDetails() {
 	const subTotal = useAppSelector(subTotalSelector);
 	const shippingCost = useAppSelector(shippingCostSelector);
-	// const discountAmount = useAppSelector(discountAmountSelector);
 	const grandTotal = useAppSelector(grandTotalSelector);
 	const city = useAppSelector(citySelector);
 	const shippingAddress = useAppSelector(shippingAddressSelector);
 	const phone = useAppSelector(phoneSelector);
 	const order = useAppSelector((state) => orderSelector(state, phone));
 	const cartProducts = useAppSelector(orderedMealsSelector);
-	// const coupon = useAppSelector(couponSelector);
 
 	const user = useUser();
 
@@ -56,14 +54,7 @@ export default function PaymentDetails() {
 			if (cartProducts.length === 0)
 				throw new Error("Cart is empty, what are you trying to order ??");
 
-			const orderData = order;
-			console.log(orderData);
-
-			// if (coupon.code) orderData = { ...order, coupon: coupon.code };
-			// else orderData = order;
-			// orderData = order;
-
-			const res = await createOrder(orderData);
+			const res = await createOrder(order);
 			// console.log(res);
 
 			if (res.success) {

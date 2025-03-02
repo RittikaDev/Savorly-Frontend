@@ -5,9 +5,26 @@ type Role = keyof typeof roleBasedPrivateRoutes;
 
 const authRoutes = ["/login", "/register"];
 
+// const roleBasedPrivateRoutes = {
+// 	user: [/^\/user/, /^\/create-shop/], // USER WILL BE ABLE TO ACESS ROUTES THAT STARTS WITH user
+// 	admin: [/^\/admin/], // ADMIN WILL BE ABLE TO ACESS ROUTES THAT STARTS WITH admin
+// };
 const roleBasedPrivateRoutes = {
-	user: [/^\/user/, /^\/create-shop/], // USER WILL BE ABLE TO ACESS ROUTES THAT STARTS WITH user
-	admin: [/^\/admin/], // ADMIN WILL BE ABLE TO ACESS ROUTES THAT STARTS WITH admin
+	user: [
+		/^\/dashboard\/customer/,
+		/^\/profile\/customer/,
+		/^\/find-meals/,
+		/^\/order-meal/,
+		/^\/track-orders/,
+		/^\/manage-preferences/,
+	],
+	provider: [
+		/^\/dashboard\/provider/,
+		/^\/profile\/provider/,
+		/^\/post-meal-menu/,
+		/^\/responses/,
+		/^\/view-orders/,
+	],
 };
 
 // RUNS ON SERVER
@@ -43,11 +60,24 @@ export const middleware = async (request: NextRequest) => {
 // MIDDLEWARE WILL ONLY GET CALLED FOR BELOW ROUTES (AUTOMATIC, NOWHERE NEEDS TO BE IMPORTED)
 export const config = {
 	matcher: [
+		// "/login",
+		// "/create-shop",
+		// "/admin",
+		// "/admin/:page",
+		// "/user",
+		// "/user/:page",
 		"/login",
-		"/create-shop",
-		"/admin",
-		"/admin/:page",
-		"/user",
-		"/user/:page",
+		"/register",
+		"/dashboard/customer",
+		"/dashboard/provider",
+		"/profile/customer",
+		"/profile/provider",
+		"/find-meals",
+		"/order-meal",
+		"/track-orders",
+		"/manage-preferences",
+		"/post-meal-menu",
+		"/responses",
+		"/view-orders",
 	],
 };

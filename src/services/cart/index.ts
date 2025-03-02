@@ -20,27 +20,21 @@ export const createOrder = async (order: IOrderMeal) => {
 		return Error(error);
 	}
 };
-
-export const addCoupon = async (
-	couponCode: string,
-	subTotal: number,
-	shopId: string
-) => {
+export const verifyOrder = async (order_id: string) => {
 	try {
 		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_BASE_API}/coupon/${couponCode}`,
+			`${process.env.NEXT_PUBLIC_BASE_API}/orders/verify?order_id=${order_id}`,
 			{
-				method: "POST",
 				headers: {
-					Authorization: (await cookies()).get("accessToken")!.value,
-					"Content-Type": "application/json",
+					Authorization: `Bearer ${
+						(await cookies()).get("accessToken")!.value
+					}`,
 				},
-				body: JSON.stringify({ orderAmount: subTotal, shopId }),
 			}
 		);
-
-		return await res.json();
+		const data = await res.json();
+		return data;
 	} catch (error: any) {
-		return Error(error);
+		return Error(error.message);
 	}
 };
