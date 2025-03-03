@@ -58,7 +58,12 @@ const menuItems = {
 		// },
 	],
 	provider: [
-		{ title: "Dashboard", url: "/dashboard/provider", icon: SquareTerminal },
+		{
+			title: "Dashboard",
+			url: "/dashboard/provider",
+			icon: SquareTerminal,
+			isActive: true,
+		},
 		{
 			title: "Manage Menus",
 			url: "/dashboard/provider/manage-menus",
