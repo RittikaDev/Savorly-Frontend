@@ -200,7 +200,7 @@ export default function CreateMealMenu() {
               </div>
               <div className="mt-4">
                 <label htmlFor="selectedCuisines" className="block">
-                  Selected Cuisines
+                  Selected Diet Preference
                 </label>
                 <div className="flex flex-wrap space-x-2 mt-2">
                   {selectedDietaryPreferences.map((option, index) => (
