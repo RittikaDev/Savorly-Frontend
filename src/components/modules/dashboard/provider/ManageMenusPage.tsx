@@ -19,7 +19,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Pencil, Trash } from "lucide-react";
-import { getProviderSpecificMeals } from "@/services/Product";
 import { toast } from "sonner";
 import {
   createMealMenu,
@@ -27,6 +26,8 @@ import {
   updateMealMenu,
 } from "@/services/Shop";
 import { useUser } from "@/context/UserContext";
+import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
+import TablePagination from "@/components/ui/core/NMTable/TablePagination";
 
 const dietaryOptions = ["Vegan", "Veg", "Keto", "Gluten-Free", "Non Veg"];
 const cuisineOptions = [
@@ -38,9 +39,10 @@ const cuisineOptions = [
   "Thai",
 ];
 
-const ManageMenusPage = () => {
+const ManageMenusPage = ({ mealList, meta }: any) => {
   const { user } = useUser();
   const [meals, setMeals] = useState<any[]>([]);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [currentMeal, setCurrentMeal] = useState<any>(null);
@@ -69,13 +71,33 @@ const ManageMenusPage = () => {
   });
 
   useEffect(() => {
-    const fetchMeals = async () => {
-      const { data } = await getProviderSpecificMeals();
-      console.log(data);
-      setMeals(data);
-    };
-    fetchMeals();
-  }, []);
+    setMeals(mealList);
+  }, [mealList]);
+
+  useEffect(() => {
+    const {
+      name,
+      description,
+      ingredients,
+      portionSize,
+      price,
+      rating,
+      dietaryPreferences,
+      cuisineType,
+    } = formData;
+
+    // Ensure all required fields are filled
+    setIsFormValid(
+      name.trim() !== "" &&
+        description.trim() !== "" &&
+        ingredients.trim() !== "" &&
+        portionSize.trim() !== "" &&
+        price > 0 &&
+        rating > 0 &&
+        dietaryPreferences.length > 0 &&
+        cuisineType.trim() !== ""
+    );
+  }, [formData]);
 
   const handleCreate = () => {
     setCurrentMeal(null);
@@ -222,188 +244,192 @@ const ManageMenusPage = () => {
   };
 
   return (
-    <div className="p-6">
-      <Button onClick={handleCreate} className="mb-4">
-        Create Meal
-      </Button>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Ingredients</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Cuisine</TableHead>
-            <TableHead>Availability</TableHead>
-            <TableHead>Rating</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {meals.map((meal: any) => (
-            <TableRow key={meal._id}>
-              <TableCell>{meal.name}</TableCell>
-              <TableCell>{meal.ingredients.join(", ")}</TableCell>
-              <TableCell>BDT {meal.price}</TableCell>
-              <TableCell>{meal.cuisineType}</TableCell>
-              <TableCell>
-                {meal.availability ? "Available" : "Unavailable"}
-              </TableCell>
-              <TableCell>{meal.rating}</TableCell>
-              <TableCell>
-                <Button variant="ghost" onClick={() => handleEdit(meal)}>
-                  {" "}
-                  <Pencil />{" "}
-                </Button>
-                <Button variant="ghost" onClick={() => handleDelete(meal)}>
-                  {" "}
-                  <Trash />{" "}
-                </Button>
-              </TableCell>
+    <SavorlyContainer>
+      <div className="p-6">
+        <Button onClick={handleCreate} className="mb-4">
+          Create Meal
+        </Button>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Ingredients</TableHead>
+              <TableHead>Price</TableHead>
+              <TableHead>Cuisine</TableHead>
+              <TableHead>Availability</TableHead>
+              <TableHead>Rating</TableHead>
+              <TableHead>Actions</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="max-w-4xl">
-          <DialogHeader>
-            <DialogTitle>
-              {currentMeal ? "Edit Meal" : "Create Meal"}
-            </DialogTitle>
-          </DialogHeader>
-          <form>
-            <Input
-              name="name"
-              placeholder="Name"
-              required
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <Textarea
-              name="description"
-              placeholder="Description"
-              value={formData.description}
-              onChange={handleChange}
-            />
-            {/* Portion, Price, Rating */}
-            <div className="flex gap-4 my-4">
-              <div className="flex-1">
-                <label
-                  htmlFor="portionSize"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Portion Size
-                </label>
-                <select
-                  name="portionSize"
-                  id="portionSize"
-                  value={formData.portionSize}
-                  onChange={handleChange}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                >
-                  <option value="">Select Portion Size</option>
-                  <option value="Small">Small</option>
-                  <option value="Medium">Medium</option>
-                  <option value="Large">Large</option>
-                </select>
-              </div>
-              <div className="flex-1">
-                <label
-                  htmlFor="portionSize"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Price
-                </label>
-                <Input
-                  name="price"
-                  type="number"
-                  placeholder="Price"
-                  required
-                  value={formData.price}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="flex-1">
-                <label
-                  htmlFor="portionSize"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Rating
-                </label>
-                <Input
-                  name="rating"
-                  type="number"
-                  placeholder="Rating"
-                  value={formData.rating}
-                  onChange={handleChange}
-                  min="0"
-                  max="5"
-                />
-              </div>
-            </div>
-            <Input
-              name="ingredients"
-              placeholder="Ingredients (comma separated)"
-              value={formData.ingredients}
-              onChange={handleChange}
-            />
-            <div className="flex flex-wrap gap-4 mb-4">
-              <label className="block text-sm font-medium text-gray-700 w-full">
-                Dietary Preferences:
-              </label>
-              {dietaryOptions.map((option) => (
-                <label
-                  key={option}
-                  className="flex items-center gap-2 text-sm text-gray-700"
-                >
-                  <input
-                    type="checkbox"
-                    name="dietaryPreferences"
-                    checked={formData.dietaryPreferences.includes(option)}
-                    onChange={handleCheckboxChange}
-                    value={option}
-                  />
-                  {option}
-                </label>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-4 mb-4">
-              <label className="block text-sm font-medium text-gray-700 w-full">
-                Cuisine Type:
-              </label>
-              {cuisineOptions.map((option) => (
-                <label
-                  key={option}
-                  className="flex items-center gap-2 text-sm text-gray-700"
-                >
-                  <input
-                    type="radio"
-                    name="cuisineType"
-                    value={option}
-                    checked={formData.cuisineType === option}
+          </TableHeader>
+          <TableBody>
+            {meals.map((meal: any) => (
+              <TableRow key={meal._id}>
+                <TableCell>{meal.name}</TableCell>
+                <TableCell>{meal.ingredients.join(", ")}</TableCell>
+                <TableCell>BDT {meal.price}</TableCell>
+                <TableCell>{meal.cuisineType}</TableCell>
+                <TableCell>
+                  {meal.availability ? "Available" : "Unavailable"}
+                </TableCell>
+                <TableCell>{meal.rating}</TableCell>
+                <TableCell>
+                  <Button variant="ghost" onClick={() => handleEdit(meal)}>
+                    {" "}
+                    <Pencil />{" "}
+                  </Button>
+                  <Button variant="ghost" onClick={() => handleDelete(meal)}>
+                    {" "}
+                    <Trash />{" "}
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+        <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+          <DialogContent className="max-w-4xl">
+            <DialogHeader>
+              <DialogTitle>
+                {currentMeal ? "Edit Meal" : "Create Meal"}
+              </DialogTitle>
+            </DialogHeader>
+            <form>
+              <Input
+                name="name"
+                placeholder="Name"
+                required
+                value={formData.name}
+                onChange={handleChange}
+              />
+              <Textarea
+                name="description"
+                placeholder="Description"
+                value={formData.description}
+                onChange={handleChange}
+              />
+              {/* Portion, Price, Rating */}
+              <div className="flex gap-4 my-4">
+                <div className="flex-1">
+                  <label
+                    htmlFor="portionSize"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Portion Size
+                  </label>
+                  <select
+                    name="portionSize"
+                    id="portionSize"
+                    value={formData.portionSize}
+                    onChange={handleChange}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  >
+                    <option value="">Select Portion Size</option>
+                    <option value="Small">Small</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Large">Large</option>
+                  </select>
+                </div>
+                <div className="flex-1">
+                  <label
+                    htmlFor="portionSize"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Price
+                  </label>
+                  <Input
+                    name="price"
+                    type="number"
+                    placeholder="Price"
+                    required
+                    value={formData.price}
                     onChange={handleChange}
                   />
-                  {option}
+                </div>
+                <div className="flex-1">
+                  <label
+                    htmlFor="portionSize"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Rating
+                  </label>
+                  <Input
+                    name="rating"
+                    type="number"
+                    placeholder="Rating"
+                    value={formData.rating}
+                    onChange={handleChange}
+                    min="0"
+                    max="5"
+                  />
+                </div>
+              </div>
+              <Input
+                name="ingredients"
+                placeholder="Ingredients (comma separated)"
+                value={formData.ingredients}
+                onChange={handleChange}
+              />
+              <div className="flex flex-wrap gap-4 mb-4">
+                <label className="block text-sm font-medium text-gray-700 w-full">
+                  Dietary Preferences:
                 </label>
-              ))}
-            </div>
+                {dietaryOptions.map((option) => (
+                  <label
+                    key={option}
+                    className="flex items-center gap-2 text-sm text-gray-700"
+                  >
+                    <input
+                      type="checkbox"
+                      name="dietaryPreferences"
+                      checked={formData.dietaryPreferences.includes(option)}
+                      onChange={handleCheckboxChange}
+                      value={option}
+                    />
+                    {option}
+                  </label>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-4 mb-4">
+                <label className="block text-sm font-medium text-gray-700 w-full">
+                  Cuisine Type:
+                </label>
+                {cuisineOptions.map((option) => (
+                  <label
+                    key={option}
+                    className="flex items-center gap-2 text-sm text-gray-700"
+                  >
+                    <input
+                      type="radio"
+                      name="cuisineType"
+                      value={option}
+                      checked={formData.cuisineType === option}
+                      onChange={handleChange}
+                    />
+                    {option}
+                  </label>
+                ))}
+              </div>
 
-            <Input
-              name="image"
-              placeholder="Image URLs (comma separated)"
-              value={formData.image}
-              onChange={handleChange}
-            />
-            <Button
-              type="button"
-              onClick={handleSave}
-              className="flex justify-center mx-auto mt-4"
-            >
-              {currentMeal ? "Update Meal" : "Save New Meal"}
-            </Button>
-          </form>
-        </DialogContent>
-      </Dialog>
-    </div>
+              <Input
+                name="image"
+                placeholder="Image URLs (comma separated)"
+                value={formData.image}
+                onChange={handleChange}
+              />
+              <Button
+                type="button"
+                onClick={handleSave}
+                className="flex justify-center mx-auto mt-4"
+                disabled={!isFormValid}
+              >
+                {currentMeal ? "Update Meal" : "Save New Meal"}
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
+      </div>
+      <TablePagination totalPage={meta?.totalPages} />
+    </SavorlyContainer>
   );
 };
 
