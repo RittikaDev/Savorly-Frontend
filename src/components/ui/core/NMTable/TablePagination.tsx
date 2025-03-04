@@ -12,14 +12,14 @@ const TablePagination = ({ totalPage }: { totalPage: number }) => {
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      router.push(`${pathname}?page=${currentPage - 1}`);
+      router.push(`${pathname}?page=${currentPage - 1}`, { scroll: false });
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPage) {
       setCurrentPage(currentPage + 1);
-      router.push(`${pathname}?page=${currentPage + 1}`);
+      router.push(`${pathname}?page=${currentPage + 1}`, { scroll: false });
     }
   };
 
