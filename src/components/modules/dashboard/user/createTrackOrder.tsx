@@ -8,19 +8,10 @@ import {
 } from "lucide-react";
 import OverviewCard from "./OverViewCard";
 import OverviewProgress from "./OverviewProgress";
-// import {
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableHead,
-//   TableHeader,
-//   TableRow,
-// } from "@/components/ui/table";
-// import { Badge } from "@/components/ui/badge";
 
 const CreateTrackOrder = async () => {
   const data = await getUserSpecificOrders();
-  console.log(data);
+  // console.log(data);
   const Orders = data.data;
 
   const pendingOrders = {
@@ -98,6 +89,9 @@ const CreateTrackOrder = async () => {
 
   return (
     <div className="max-w-7xl mx-auto">
+      <h2 className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-primary text-transparent bg-clip-text z-10 mb-6">
+        Track Your Orders
+      </h2>
       {/* Overview Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Cards Section - 3 per row */}

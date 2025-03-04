@@ -15,6 +15,8 @@ export const getAllMeals = async (
 
   if (query?.dietaryPreferences)
     params.append("dietaryPreferences", query?.dietaryPreferences.toString());
+  if (query?.providerId)
+    params.append("providerId", query?.providerId.toString());
 
   if (query?.rating) params.append("rating", query?.rating.toString());
 
@@ -137,6 +139,17 @@ export const getDietaryPreference = async () => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/meals/dieteryPreference`
+    );
+
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+export const getAllProviders = async () => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/user//all-providers`
     );
 
     return res.json();

@@ -3,7 +3,7 @@ import React from "react";
 const CustomerPage = () => {
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
+      <h1 className="text-3xl font-bold bg-gradient-to-r from-rose-300 to-primary text-transparent bg-clip-text mb-6">
         Welcome to Your Dashboard
       </h1>
       <p className="text-lg text-gray-600 mb-8">Here is what you can manage:</p>

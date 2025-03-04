@@ -20,6 +20,9 @@ import { useUser } from "@/context/UserContext";
 import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/services/AuthService";
 import { protectedRoutes } from "@/contants";
+import LoadingPage from "@/components/shared/Loader";
+
+import Profile from "@/assets/profile.png";
 
 //  USER DETAILS ON MENU FOOTER
 export function NavUser() {
@@ -33,8 +36,10 @@ export function NavUser() {
     logout();
     setIsLoading(true);
 
-    if (protectedRoutes.some((route) => pathname.match(route)))
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      <LoadingPage />;
       router.push("/");
+    }
   };
 
   return (
@@ -47,7 +52,7 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage alt={user?.name} />
+                <AvatarImage src={Profile.src} />
                 <AvatarFallback className="rounded-lg">
                   {user?.role}
                 </AvatarFallback>
@@ -68,7 +73,7 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage alt={user?.name} />
+                  <AvatarImage src={Profile.src} />
                   <AvatarFallback className="rounded-lg">
                     {user?.role}
                   </AvatarFallback>

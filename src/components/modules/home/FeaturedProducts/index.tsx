@@ -28,7 +28,7 @@ const FeaturedProducts = async ({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-6">
-          {meals?.map((meal: IMeal, index: number) => (
+          {meals?.slice(0, 8).map((meal: IMeal, index: number) => (
             <Card
               key={index}
               className="relative p-4 shadow-lg rounded-2xl mb-10"

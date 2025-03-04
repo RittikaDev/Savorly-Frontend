@@ -24,6 +24,9 @@ const SelectmealsPage = ({ trackOrder, meta }: any) => {
 
   return (
     <>
+      <h2 className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-primary text-transparent bg-clip-text z-10 mb-6">
+        Your Selected Meals
+      </h2>
       <Table className="min-w-full border rounded-lg">
         <TableHeader>
           <TableRow>

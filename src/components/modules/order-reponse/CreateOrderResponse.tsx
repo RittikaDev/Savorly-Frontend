@@ -87,8 +87,8 @@ const CreateOrderResponse = ({ orderResponseList, meta }: any) => {
   return (
     <SavorlyContainer>
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-          Manage Orders
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-primary text-transparent bg-clip-text z-10 mb-6">
+          Respond To Orders
         </h2>
 
         <Table>
@@ -105,48 +105,52 @@ const CreateOrderResponse = ({ orderResponseList, meta }: any) => {
 
           <TableBody>
             {orderList &&
-              orderList.map((order) => (
-                <TableRow key={order._id}>
-                  <TableCell>{order._id}</TableCell>
-                  <TableCell>{order.mealId.name}</TableCell>
-                  <TableCell>{order.mealId.portionSize}</TableCell>
-                  <TableCell>{order.mealId.price * order.quantity}</TableCell>
-                  <TableCell>
-                    <Select
-                      value={order.status}
-                      onValueChange={(newStatus) =>
-                        changeStatus(order._id, newStatus)
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Pending">Pending</SelectItem>
-                        <SelectItem value="In progress">In progress</SelectItem>
-                        <SelectItem value="Delivered">Delivered</SelectItem>
-                        <SelectItem value="Cancelled">Cancelled</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      onClick={() =>
-                        handleStatusChange(
-                          order,
-                          order._id,
-                          order.providerId,
-                          order.status,
-                          order.scheduledDelivery
-                        )
-                      }
-                      className="bg-primary text-white hover:bg-rose-600"
-                    >
-                      Update Status
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              orderList.map((order) =>
+                order.mealId?.map((meal: any) => (
+                  <TableRow key={order._id}>
+                    <TableCell>{order._id}</TableCell>
+                    <TableCell>{meal.name}</TableCell>
+                    <TableCell>{meal.portionSize}</TableCell>
+                    <TableCell>{meal.price * order.quantity}</TableCell>
+                    <TableCell>
+                      <Select
+                        value={order.status}
+                        onValueChange={(newStatus) =>
+                          changeStatus(order._id, newStatus)
+                        }
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Pending">Pending</SelectItem>
+                          <SelectItem value="In progress">
+                            In progress
+                          </SelectItem>
+                          <SelectItem value="Delivered">Delivered</SelectItem>
+                          <SelectItem value="Cancelled">Cancelled</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={() =>
+                          handleStatusChange(
+                            order,
+                            order._id,
+                            order.providerId,
+                            order.status,
+                            order.scheduledDelivery
+                          )
+                        }
+                        className="bg-primary text-white hover:bg-rose-600"
+                      >
+                        Update Status
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
           </TableBody>
         </Table>
         <TablePagination totalPage={meta?.totalPages} />

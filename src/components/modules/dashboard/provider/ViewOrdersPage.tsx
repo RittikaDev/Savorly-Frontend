@@ -64,8 +64,8 @@ const ViewOrdersPage = ({ providerSpecificOrder, meta }: any) => {
   return (
     <SavorlyContainer>
       <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-          Manage Orders
+        <h2 className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-primary text-transparent bg-clip-text z-10 mb-6">
+          View Orders
         </h2>
 
         <Table>
