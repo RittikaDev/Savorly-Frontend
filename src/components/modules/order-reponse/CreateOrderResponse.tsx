@@ -139,7 +139,7 @@ const CreateOrderResponse = () => {
 													order.scheduledDelivery
 												)
 											}
-											className="bg-blue-600 text-white hover:bg-blue-700"
+											className="bg-primary text-white hover:bg-rose-600"
 										>
 											Update Status
 										</Button>
