@@ -30,7 +30,16 @@ export default function PaymentDetails() {
 	const city = useAppSelector(citySelector);
 	const shippingAddress = useAppSelector(shippingAddressSelector);
 	const phone = useAppSelector(phoneSelector);
-	const order = useAppSelector((state) => orderSelector(state, phone));
+	const order = useAppSelector((state) => {
+		const selectedOrder = orderSelector(state, phone);
+		return {
+			...selectedOrder,
+			meals: selectedOrder.meals.map((meal) => ({
+				...meal,
+				meal: meal.meal || "",
+			})),
+		};
+	});
 	const cartProducts = useAppSelector(orderedMealsSelector);
 
 	const user = useUser();
@@ -71,21 +80,23 @@ export default function PaymentDetails() {
 
 	return (
 		<div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4 h-fit p-5">
-			<h1 className="text-2xl font-bold">Payment Details</h1>
+			<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-300 to-primary text-transparent bg-clip-text">
+				Payment Details
+			</h2>
 			<>
 				<div className="space-y-2 mt-4">
 					<div className="flex justify-between">
-						<p className="text-gray-500 ">Subtotal</p>
+						<p className="text-gray-500">Subtotal</p>
 						<p className="font-semibold">{currencyFormatter(subTotal)}</p>
 					</div>
 
 					<div className="flex justify-between">
-						<p className="text-gray-500 ">Shipment Cost</p>
+						<p className="text-gray-500">Shipment Cost</p>
 						<p className="font-semibold">{currencyFormatter(shippingCost)}</p>
 					</div>
 				</div>
 				<div className="flex justify-between mt-10 mb-5">
-					<p className="text-gray-500 ">Grand Total</p>
+					<p className="text-gray-500">Grand Total</p>
 					<p className="font-semibold">{currencyFormatter(grandTotal)}</p>
 				</div>
 			</>

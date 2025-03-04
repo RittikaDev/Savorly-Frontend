@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
 import {
@@ -49,19 +50,21 @@ const CreateOrderResponse = () => {
 	};
 
 	const handleStatusChange = async (
+		order: any,
 		orderId: string,
 		providerId: string,
 		newStatus: string,
 		deliveryDate: string
 	) => {
 		try {
-			console.log(orderId, providerId, newStatus);
-			const res = await updateOrderStatusByProvider(
-				orderId,
-				providerId,
-				newStatus,
-				deliveryDate
-			);
+			console.log(orderId, providerId, newStatus, deliveryDate);
+			// const res = await updateOrderStatusByProvider(
+			// 	orderId,
+			// 	providerId,
+			// 	newStatus,
+			// 	deliveryDate
+			// );
+			const res = await updateOrderStatusByProvider(order);
 			console.log(res);
 			// if (!res.ok) throw new Error("Failed to update order status");
 
@@ -129,6 +132,7 @@ const CreateOrderResponse = () => {
 										<Button
 											onClick={() =>
 												handleStatusChange(
+													order,
 													order._id,
 													order.providerId,
 													order.status,

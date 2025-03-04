@@ -20,7 +20,11 @@ const categories = [
 const Category = () => {
 	return (
 		<SavorlyContainer className="my-20">
-			<h2 className="text-primary font-bold text-2xl mb-10">Categories</h2>
+			<div className="flex items-center justify-center mb-12">
+				<h2 className="text-4xl font-bold bg-gradient-to-r from-rose-300 to-primary text-transparent bg-clip-text">
+					Category
+				</h2>
+			</div>
 			<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 mt-4">
 				{categories.map((category, index) => (
 					<div

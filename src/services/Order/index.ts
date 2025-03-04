@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export const getUserSpecificOrders = async () => {
 	try {
 		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_BASE_API}/orders/my-bookings`,
+			`${process.env.NEXT_PUBLIC_BASE_API}/customers/orders`,
 			{
 				headers: {
 					Authorization: `Bearer ${
@@ -21,11 +21,16 @@ export const getUserSpecificOrders = async () => {
 };
 export const getProviderSpecificOrders = async () => {
 	try {
-		const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/orders`, {
-			headers: {
-				Authorization: `Bearer ${(await cookies()).get("accessToken")!.value}`,
-			},
-		});
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_BASE_API}/providers/orders`,
+			{
+				headers: {
+					Authorization: `Bearer ${
+						(await cookies()).get("accessToken")!.value
+					}`,
+				},
+			}
+		);
 		const data = await res.json();
 		return data;
 	} catch (error: any) {
@@ -33,27 +38,30 @@ export const getProviderSpecificOrders = async () => {
 	}
 };
 
-export const updateOrderStatusByProvider = async (
-	orderId: string,
-	providerId: string,
-	newStatus: string,
-	deliveryDate?: string
-) => {
+// export const updateOrderStatusByProvider = async (
+// 	orderId: string,
+// 	providerId: string,
+// 	newStatus: string,
+// 	deliveryDate?: string
+// ) => {
+export const updateOrderStatusByProvider = async (order: any) => {
 	try {
 		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_BASE_API}/orders/${orderId}/${providerId}/status`,
+			// `${process.env.NEXT_PUBLIC_BASE_API}/providers/response/${orderId}/${providerId}`,
+			`${process.env.NEXT_PUBLIC_BASE_API}/providers/response`,
 			{
-				method: "PATCH",
+				method: "PUT",
 				headers: {
 					Authorization: `Bearer ${
 						(await cookies()).get("accessToken")!.value
 					}`,
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({
-					status: newStatus,
-					deliveryDate: deliveryDate,
-				}),
+				body: JSON.stringify(
+					order
+					// status: newStatus,
+					// deliveryDate: deliveryDate,
+				),
 			}
 		);
 

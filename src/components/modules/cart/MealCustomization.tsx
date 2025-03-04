@@ -35,7 +35,9 @@ export default function MealCustomization() {
 	return (
 		<div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4  p-5">
 			<div className="flex flex-col justify-between h-full">
-				<h1 className="text-2xl font-bold">Customize Your Meal</h1>
+				<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-300 to-primary text-transparent bg-clip-text">
+					Customize Your Meal
+				</h2>
 
 				{/* Spice Tolerance Dropdown */}
 				<div className="mt-4">

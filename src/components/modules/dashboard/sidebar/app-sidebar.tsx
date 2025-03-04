@@ -76,7 +76,7 @@ const menuItems = {
 		},
 		{
 			title: "Respond To Orders",
-			url: "/dashboard/provider/respond-orders",
+			url: "/dashboard/provider/responses",
 			icon: Bot,
 		},
 	],
@@ -95,10 +95,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 						<SidebarMenuButton size="lg" asChild>
 							<Link href="/">
 								<div className="flex items-center justify-center">
-									<Image src={Brand} alt="Logo" width={60} height={60} />
+									<Image src={Brand} alt="Logo" width={40} height={40} />
 								</div>
 								<div className="grid flex-1 text-left text-sm leading-tight">
-									<h2 className="font-bold text-xl">EliteWear</h2>
+									<h2 className="font-bold text-xl">avorly</h2>
 								</div>
 							</Link>
 						</SidebarMenuButton>
