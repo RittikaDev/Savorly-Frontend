@@ -1,16 +1,12 @@
-// import { Button } from "@/components/ui/button";
-// import CategoryCard from "@/components/ui/core/CategoryCard";
 import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
 import { getAllCategories } from "@/services/Category";
-// import { ICategory } from "@/types";
 import Image from "next/image";
-// import Link from "next/link";
 
-import Denim from "@/assets/category/denim.jpg";
-import Slider2 from "@/assets/hero_section/slider2.jpg";
-import Slider3 from "@/assets/hero_section/slider3.jpg";
-import Slider4 from "@/assets/hero_section/slider4.jpg";
-import Slider5 from "@/assets/hero_section/slider5.jpg";
+import Slider7 from "@/assets/hero_section/slider7.jpg";
+import Slider10 from "@/assets/hero_section/slider10.jpg";
+import Slider8 from "@/assets/hero_section/slider8.jpg";
+import Slider12 from "@/assets/hero_section/slider12.jpg";
+import Slider11 from "@/assets/hero_section/slider11.jpg";
 
 const Intro = async () => {
 	const { data: categories } = await getAllCategories();
@@ -41,14 +37,14 @@ const Intro = async () => {
 					{/* Left Images */}
 					<div className="flex flex-col gap-4">
 						<Image
-							src={Denim}
+							src={Slider8}
 							alt="Left Image 1"
 							width={300}
 							height={400}
 							className="rounded-xl object-cover w-full"
 						/>
 						<Image
-							src={Slider2}
+							src={Slider10}
 							alt="Left Image 2"
 							width={300}
 							height={400}
@@ -59,7 +55,7 @@ const Intro = async () => {
 					{/* Middle Image (Spans two rows) */}
 					<div className="row-span-2">
 						<Image
-							src={Slider3}
+							src={Slider7}
 							alt="Middle Image"
 							width={400}
 							height={780}
@@ -71,14 +67,14 @@ const Intro = async () => {
 					{/* Right Images */}
 					<div className="flex flex-col gap-4">
 						<Image
-							src={Slider4}
+							src={Slider12}
 							alt="Right Image 1"
 							width={300}
 							height={400}
 							className="rounded-xl object-cover w-full"
 						/>
 						<Image
-							src={Slider5}
+							src={Slider11}
 							alt="Right Image 2"
 							width={300}
 							height={400}
