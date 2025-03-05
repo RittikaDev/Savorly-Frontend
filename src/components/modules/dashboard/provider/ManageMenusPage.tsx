@@ -256,6 +256,7 @@ const ManageMenusPage = ({ mealList, meta }: any) => {
 					);
 					if (res.success) {
 						toast.success(res.message);
+
 						setMeals((prevMeals) =>
 							prevMeals.map((meal) =>
 								meal._id === currentMeal._id
@@ -267,11 +268,12 @@ const ManageMenusPage = ({ mealList, meta }: any) => {
 				} else {
 					// console.log(updatedFormData);
 					const res = await createMealMenu(user.userId, updatedFormData);
+					console.log(res);
 					if (res.success) {
 						toast.success(res.message);
 						setMeals((prevMeals) => [
 							...prevMeals,
-							{ ...updatedFormData, _id: res.newMealId },
+							{ ...updatedFormData, _id: res.data._id },
 						]);
 					} else toast.error(res.message);
 				}
