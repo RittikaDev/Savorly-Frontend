@@ -39,7 +39,7 @@ export const middleware = async (request: NextRequest) => {
 		} else {
 			return NextResponse.redirect(
 				new URL(
-					`http://localhost:3000/login?redirectPath=${pathname}`, // REDIRECT PATH WILL REDIRECT TO THE ROUTE WHERE USER ORIGINALLY WANTED TO GO RIGHT AFTER AUTHENTICATION IS DONE
+					`https://savorly-two.vercel.app/login?redirectPath=${pathname}`, // REDIRECT PATH WILL REDIRECT TO THE ROUTE WHERE USER ORIGINALLY WANTED TO GO RIGHT AFTER AUTHENTICATION IS DONE
 					request.url
 				)
 			);

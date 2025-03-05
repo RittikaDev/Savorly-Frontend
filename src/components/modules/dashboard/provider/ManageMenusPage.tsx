@@ -244,11 +244,11 @@ const ManageMenusPage = ({ mealList, meta }: any) => {
 
 		try {
 			if (user?.userId) {
-				const updateObj = {
-					...updatedFormData,
-					_id: currentMeal._id,
-				};
 				if (currentMeal) {
+					const updateObj = {
+						...updatedFormData,
+						_id: currentMeal._id,
+					};
 					const res = await updateMealMenu(
 						currentMeal._id,
 						user.userId,
