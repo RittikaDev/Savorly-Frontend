@@ -49,6 +49,7 @@ const ManageMenusPage = ({ mealList, meta }: any) => {
   const [imageFiles, setImageFiles] = useState<File[] | []>([]);
   const [imagePreview, setImagePreview] = useState<string[] | []>([]);
   const [loading, setLoading] = useState(false);
+  const [imageUploaded, setImageUploaded] = useState(false);
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -214,6 +215,7 @@ const ManageMenusPage = ({ mealList, meta }: any) => {
     const file = event.target.files[0];
     if (file) {
       setLoading(true);
+      setImageUploaded(false); // Reset upload status
       const formData = new FormData();
       formData.append("file", file);
       formData.append("upload_preset", "WheelDeal");
@@ -228,6 +230,7 @@ const ManageMenusPage = ({ mealList, meta }: any) => {
         setImagePreview([imageUrl]);
         console.log(imageFiles);
         setLoading(false);
+        setImageUploaded(true);
       } catch (err) {
         console.error("Error uploading image", err);
         setLoading(false);
@@ -297,6 +300,9 @@ const ManageMenusPage = ({ mealList, meta }: any) => {
       console.error("Error saving meal:", error);
     }
   };
+
+  const isSaveEnabled =
+    (!loading && imageUploaded) || (!loading && isFormValid);
 
   return (
     <SavorlyContainer>
@@ -491,7 +497,7 @@ const ManageMenusPage = ({ mealList, meta }: any) => {
                 type="button"
                 onClick={handleSave}
                 className="flex justify-center mx-auto mt-4"
-                disabled={!isFormValid}
+                disabled={!isSaveEnabled}
               >
                 {currentMeal ? "Update Meal" : "Save New Meal"}
               </Button>
