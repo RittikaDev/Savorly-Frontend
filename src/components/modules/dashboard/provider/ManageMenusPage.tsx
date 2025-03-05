@@ -24,7 +24,7 @@ import {
 	createMealMenu,
 	deleteMealMenu,
 	updateMealMenu,
-} from "@/services/Shop";
+} from "@/services/Meals";
 import { useUser } from "@/context/UserContext";
 import SavorlyContainer from "@/components/ui/core/SavorlyContainer";
 import TablePagination from "@/components/ui/core/Pagination/TablePagination";
@@ -265,7 +265,7 @@ const ManageMenusPage = ({ mealList, meta }: any) => {
 						);
 					} else toast.error(res.message);
 				} else {
-					console.log(updatedFormData);
+					// console.log(updatedFormData);
 					const res = await createMealMenu(user.userId, updatedFormData);
 					if (res.success) {
 						toast.success(res.message);

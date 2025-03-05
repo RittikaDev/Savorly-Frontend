@@ -98,7 +98,7 @@ export function ManageProfile() {
 					}
 					if (user?.role == "provider") {
 						const mealProvider = await getMealProvider(user.userId);
-						console.log(mealProvider);
+						// console.log(mealProvider);
 						if (mealProvider.data.length == 0) setIsExisting(false);
 						else {
 							setIsExisting(true);
@@ -123,8 +123,7 @@ export function ManageProfile() {
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { id, value } = e.target;
-		console.log(id, value);
-		// const { id, value } = e.target;
+		// console.log(id, value);
 		setProfileData((prev) => ({ ...prev, [id]: value }));
 	};
 	const handleInputMealChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -179,7 +178,7 @@ export function ManageProfile() {
 						? await updateMealProvider(user?.userId, mealProviderData)
 						: await createMealProvider(user?.userId, mealProviderData);
 
-					console.log("API response:", result);
+					// console.log("API response:", result);
 					toast.success(result.message, { id: orderLoading });
 				} catch (error) {
 					console.error("Error updating profile:", error);

@@ -4,7 +4,7 @@ import { IOrderMeal } from "@/types/cart";
 import { cookies } from "next/headers";
 
 export const createOrder = async (order: IOrderMeal) => {
-	console.log((await cookies()).get("accessToken")!.value);
+	// console.log((await cookies()).get("accessToken")!.value);
 	try {
 		const res = await fetch(
 			`${process.env.NEXT_PUBLIC_BASE_API}/customers/order`,

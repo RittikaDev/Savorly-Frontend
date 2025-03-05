@@ -5,7 +5,7 @@ export interface IOrderMeal {
 		city: string;
 		phone: string;
 	};
-	scheduledDelivery: Date;
+	scheduledDelivery: string;
 	providerId: string;
 	dietaryPreferences?: string;
 	spiceLevel?: string;

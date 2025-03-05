@@ -59,7 +59,7 @@ const ViewOrdersPage = ({ providerSpecificOrder, meta }: any) => {
 		Cancelled: "bg-red-500",
 	};
 
-	console.log(orderList);
+	// console.log(orderList);
 
 	return (
 		<SavorlyContainer>

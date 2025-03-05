@@ -58,26 +58,13 @@ const CreateOrderResponse = ({ orderResponseList, meta }: any) => {
 		deliveryDate: string
 	) => {
 		try {
-			console.log(orderId, providerId, newStatus, deliveryDate);
-			// const res = await updateOrderStatusByProvider(
-			// 	orderId,
-			// 	providerId,
-			// 	newStatus,
-			// 	deliveryDate
-			// );
+			console.log(deliveryDate);
+
 			const res = await updateOrderStatusByProvider(order);
-			console.log(res);
-			// if (!res.ok) throw new Error("Failed to update order status");
+			// console.log(res);
 
-			// const result = await res.json();
-			// // Update local order list with the new status
-			// setOrderList((prevOrders) =>
-			// 	prevOrders.map((order) =>
-			// 		order.orderId === orderId ? { ...order, status: newStatus } : order
-			// 	)
-			// );
-
-			toast.success(`Order status updated to "${newStatus}" successfully!`);
+			if (res.success)
+				toast.success(`Order status updated to "${newStatus}" successfully!`);
 		} catch (error) {
 			console.log(error);
 			toast.error(`Error updating order status: `);

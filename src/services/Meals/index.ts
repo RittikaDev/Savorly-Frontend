@@ -1,5 +1,6 @@
 "use server";
 import { cookies } from "next/headers";
+import { IMeal } from "@/types";
 
 // GET ALL MEALS
 export const getAllMeals = async (
@@ -32,7 +33,7 @@ export const getAllMeals = async (
 			}
 		);
 		const data = await res.json();
-		console.log(data);
+		// console.log(data);
 		return data;
 	} catch (error: any) {
 		return Error(error.message);
@@ -56,7 +57,7 @@ export const getProviderSpecificMeals = async (
 			}
 		);
 		const data = await res.json();
-		console.log(data);
+		// console.log(data);
 		return data;
 	} catch (error: any) {
 		return Error(error.message);
@@ -96,6 +97,76 @@ export const getAllProviders = async () => {
 			`${process.env.NEXT_PUBLIC_BASE_API}/user/all-providers`
 		);
 
+		return res.json();
+	} catch (error: any) {
+		return Error(error);
+	}
+};
+
+//  MEAL MENU CRUD
+export const createMealMenu = async (userId: string, data: IMeal) => {
+	try {
+		const res = await fetch(
+			// `${process.env.NEXT_PUBLIC_BASE_API}/providers/menu/${userId}`,
+			`${process.env.NEXT_PUBLIC_BASE_API}/providers/menu`,
+			{
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${
+						(await cookies()).get("accessToken")!.value
+					}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			}
+		);
+		// console.log(res.json());
+		return res.json();
+	} catch (error: any) {
+		return Error(error);
+	}
+};
+
+export const updateMealMenu = async (
+	mealId: string,
+	userId: string,
+	data: IMeal
+) => {
+	try {
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_BASE_API}/providers/menu`,
+			{
+				method: "PUT",
+				headers: {
+					Authorization: `Bearer ${
+						(await cookies()).get("accessToken")!.value
+					}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			}
+		);
+		// console.log(res.json());
+		return res.json();
+	} catch (error: any) {
+		return Error(error);
+	}
+};
+export const deleteMealMenu = async (mealId: string, providerId: string) => {
+	try {
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_BASE_API}/meals/${mealId}/${providerId}`,
+			{
+				method: "DELETE",
+				headers: {
+					Authorization: `Bearer ${
+						(await cookies()).get("accessToken")!.value
+					}`,
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		// console.log(res.json());
 		return res.json();
 	} catch (error: any) {
 		return Error(error);

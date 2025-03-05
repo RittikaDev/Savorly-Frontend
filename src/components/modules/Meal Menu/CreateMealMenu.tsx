@@ -17,7 +17,7 @@ import { useState } from "react";
 // import ImagePreviewer from "@/components/ui/core/NMImageUploader/ImagePreviewer";
 import { toast } from "sonner";
 import { useUser } from "@/context/UserContext";
-import { createMealMenu } from "@/services/Shop";
+import { createMealMenu } from "@/services/Meals";
 import { IMeal } from "@/types";
 
 import axios from "axios";
@@ -114,7 +114,7 @@ export default function CreateMealMenu() {
 			image: imagePreview.length > 0 ? [imagePreview[0]] : [],
 			rating: 0,
 		};
-		console.log(mealData, user?.userId);
+		// console.log(mealData, user?.userId);
 
 		try {
 			if (user?.userId) {
