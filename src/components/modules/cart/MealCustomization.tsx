@@ -52,9 +52,9 @@ export default function MealCustomization() {
 	};
 
 	return (
-		<div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4  p-5">
-			<div className="bg-white rounded-lg shadow-md border border-gray-200 p-5 flex flex-col gap-4">
-				<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-300 to-primary text-transparent bg-clip-text">
+		<div className="border-2 border-white bg-background brightness-105 rounded-sm col-span-4  p-5">
+			<div className="bg-white rounded-sm shadow-md border border-gray-200 p-5 flex flex-col gap-4">
+				<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-primary text-transparent bg-clip-text">
 					Meal Customization
 				</h2>
 

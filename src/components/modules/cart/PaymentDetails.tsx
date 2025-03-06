@@ -77,9 +77,9 @@ export default function PaymentDetails() {
 	};
 
 	return (
-		<div className="border border-gray-300 bg-white shadow-sm rounded-lg p-6 col-span-4">
-			<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-300 to-primary text-transparent bg-clip-text mb-6">
-				Payment Summary
+		<div className="border border-gray-300 bg-white shadow-sm rounded-sm p-6 col-span-4">
+			<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-primary text-transparent bg-clip-text mb-6">
+				Order Summary
 			</h2>
 
 			<div className="space-y-3">
@@ -89,7 +89,7 @@ export default function PaymentDetails() {
 				</div>
 
 				<div className="flex justify-between text-gray-600">
-					<p>Shipping Fee</p>
+					<p>Calculated Shipping</p>
 					<p className="font-medium">{currencyFormatter(shippingCost)}</p>
 				</div>
 
@@ -103,7 +103,7 @@ export default function PaymentDetails() {
 				onClick={handleOrder}
 				className="w-full mt-6 py-3 text-lg font-medium bg-primary hover:bg-rose-700 rounded-lg transition"
 			>
-				Order
+				Order With ShurjoPay
 			</Button>
 		</div>
 	);

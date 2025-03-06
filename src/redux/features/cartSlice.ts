@@ -117,7 +117,7 @@ export const orderedMealsSelector = (state: RootState) => {
 export const orderSelector = (state: RootState, phone: string) => {
 	return {
 		meals: state.cart.meals.map((meal) => ({
-			meal: meal._id, // Ensure it's just the meal ID
+			meal: meal._id, // Ensure the meal ID
 			quantity: meal.orderQuantity,
 		})),
 		address: {

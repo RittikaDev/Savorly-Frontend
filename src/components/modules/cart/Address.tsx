@@ -41,9 +41,9 @@ export default function Address() {
 
 	return (
 		<>
-			<div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4 p-6">
-				<div className="bg-white rounded-md shadow-md border border-gray-200 p-4 flex flex-col gap-4">
-					<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-300 to-primary text-transparent bg-clip-text">
+			<div className="border-2 border-white bg-background brightness-105 rounded-sm col-span-4 p-6">
+				<div className="bg-white rounded-sm shadow-md border border-gray-200 p-4 flex flex-col gap-4">
+					<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-primary text-transparent bg-clip-text">
 						Address Details
 					</h2>
 
@@ -51,7 +51,7 @@ export default function Address() {
 						{/* City Selection */}
 						<Select onValueChange={(city) => handleCitySelect(city)}>
 							<SelectTrigger>
-								<SelectValue placeholder="City" />
+								<SelectValue placeholder="Pick Your Location" />
 							</SelectTrigger>
 							<SelectContent>
 								{cities.map((city) => (
@@ -71,12 +71,12 @@ export default function Address() {
 						/>
 					</div>
 
-					{/* Shipping Address */}
+					{/* Shipping Area */}
 					<Textarea
 						onChange={(e) => handleShippingAddress(e.target.value)}
 						rows={3}
 						className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
-						placeholder="Shipping Address"
+						placeholder="Shipping Area"
 					/>
 				</div>
 			</div>
