@@ -30,85 +30,70 @@ export default function CartMealCard({ meal }: { meal: Cartmeal }) {
 	};
 
 	return (
-		<div className="bg-white rounded-lg flex p-5 gap-5 shadow-md border border-gray-200">
+		<div className="bg-white rounded-md shadow-md border border-gray-200 p-4 flex items-center gap-4">
 			{/* Meal Image */}
-			<div className="h-full w-32 rounded-md overflow-hidden">
+			<div className="w-24 h-24 rounded-md overflow-hidden">
 				<Image
 					src={meal?.image?.[0] || Empty}
-					height={200}
-					width={200}
+					height={100}
+					width={100}
 					alt={meal?.name || "meal"}
-					className="aspect-square object-cover"
+					className="w-full h-full object-cover"
 				/>
 			</div>
 
 			{/* Meal Details */}
-			<div className="flex flex-col justify-between flex-grow">
-				<h1 className="text-xl font-semibold">{meal?.name}</h1>
-				<p className="text-gray-600 text-sm mt-1">{meal?.description}</p>
+			<div className="flex flex-col flex-grow">
+				<h1 className="text-lg font-semibold">{meal?.name}</h1>
+				<p className="text-gray-600 text-sm">{meal?.description}</p>
 
-				<div className="flex flex-wrap gap-2 my-2 text-sm text-gray-500">
+				<div className="text-xs text-gray-500 mt-1 flex flex-wrap gap-x-3">
 					<p>
-						<span className="font-semibold">Cuisine:</span> {meal?.cuisineType}
+						<span className="font-medium">Cuisine:</span> {meal?.cuisineType}
 					</p>
 					<p>
-						<span className="font-semibold">Portion Size:</span>{" "}
-						{meal?.portionSize}
+						<span className="font-medium">Size:</span> {meal?.portionSize}
 					</p>
 					<p>
-						<span className="font-semibold">Availability:</span>{" "}
+						<span className="font-medium">Stock:</span>
 						<span
 							className={meal?.availability ? "text-green-600" : "text-red-600"}
 						>
-							{meal?.availability ? "In Stock" : "Out of Stock"}
+							{meal?.availability ? " Available" : " Out of Stock"}
 						</span>
 					</p>
 				</div>
+			</div>
 
-				{/* Ingredients & Dietary Preferences */}
-				<div className="text-xs text-gray-500">
-					<p>
-						<span className="font-semibold">Ingredients:</span>{" "}
-						{meal?.ingredients?.join(", ") || "N/A"}
-					</p>
-					<p>
-						<span className="font-semibold">Dietary Preferences:</span>{" "}
-						{meal?.dietaryPreferences?.join(", ") || "None"}
-					</p>
-				</div>
+			{/* Price & Quantity Controls */}
+			<div className="flex flex-col items-end">
+				<h2 className="text-md font-semibold">
+					{currencyFormatter(meal.price)}
+				</h2>
 
-				<hr className="my-2" />
+				<div className="flex items-center gap-2 mt-1">
+					<Button
+						onClick={() => handleDecrementQuantity(meal._id!)}
+						className="size-6 p-1"
+					>
+						<Minus />
+					</Button>
 
-				{/* Price & Quantity Controls */}
-				<div className="flex items-center justify-between">
-					<h2 className="text-lg font-semibold">
-						Price: {currencyFormatter(meal.price)}
-					</h2>
-					<div className="flex items-center gap-2">
-						<p className="text-gray-500 font-semibold">Quantity</p>
-						<Button
-							onClick={() => handleDecrementQuantity(meal._id!)}
-							variant="outline"
-							className="size-8 rounded-sm"
-						>
-							<Minus />
-						</Button>
-						<p className="font-semibold text-xl p-2">{meal?.orderQuantity}</p>
-						<Button
-							onClick={() => handleIncrementQuantity(meal._id!)}
-							variant="outline"
-							className="size-8 rounded-sm"
-						>
-							<Plus />
-						</Button>
-						<Button
-							onClick={() => handleRemoveMeal(meal._id!)}
-							variant="outline"
-							className="size-8 rounded-sm"
-						>
-							<Trash className="text-red-500/50" />
-						</Button>
-					</div>
+					<p className="font-semibold text-md">{meal?.orderQuantity}</p>
+
+					<Button
+						onClick={() => handleIncrementQuantity(meal._id!)}
+						className="size-6 p-1"
+					>
+						<Plus />
+					</Button>
+
+					<Button
+						onClick={() => handleRemoveMeal(meal._id!)}
+						className="size-6 p-2 border border-red-300"
+					>
+						<Trash className="text-white" />
+					</Button>
 				</div>
 			</div>
 		</div>

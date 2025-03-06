@@ -133,10 +133,6 @@ export const orderSelector = (state: RootState, phone: string) => {
 	};
 };
 
-export const shopSelector = (state: RootState) => {
-	return state.cart.mealProviderId;
-};
-
 //* Payment
 
 export const subTotalSelector = (state: RootState) => {

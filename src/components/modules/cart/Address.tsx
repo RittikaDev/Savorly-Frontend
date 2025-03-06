@@ -42,20 +42,16 @@ export default function Address() {
 	return (
 		<>
 			<div className="border-2 border-white bg-background brightness-105 rounded-md col-span-4 p-6">
-				<div className="flex flex-col h-full">
-					{/* <h1 className="text-2xl font-bold text-gray-800">Address</h1> */}
+				<div className="bg-white rounded-md shadow-md border border-gray-200 p-4 flex flex-col gap-4">
 					<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-300 to-primary text-transparent bg-clip-text">
-						Address
+						Address Details
 					</h2>
-					<p className="text-gray-600 mb-4">
-						Enter your address details below.
-					</p>
 
-					<div className="space-y-4">
+					<div className="grid grid-cols-2 gap-4">
 						{/* City Selection */}
 						<Select onValueChange={(city) => handleCitySelect(city)}>
-							<SelectTrigger className="mb-4">
-								<SelectValue placeholder="Select a city" />
+							<SelectTrigger>
+								<SelectValue placeholder="City" />
 							</SelectTrigger>
 							<SelectContent>
 								{cities.map((city) => (
@@ -66,27 +62,22 @@ export default function Address() {
 							</SelectContent>
 						</Select>
 
-						{/* Shipping Address */}
-						<Textarea
-							onChange={(e) => handleShippingAddress(e.target.value)}
-							rows={5}
-							className="w-full p-3 border-2 border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-							placeholder="Enter your shipping address"
+						{/* Phone Number */}
+						<input
+							type="text"
+							className="border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+							placeholder="Phone Number"
+							onChange={(e) => handlePhone(e.target.value)}
 						/>
-
-						{/* Phone Number Input */}
-						<div className="mt-4">
-							<label className="block text-gray-600 text-sm font-medium mb-2">
-								Phone Number
-							</label>
-							<input
-								type="text"
-								className="w-full p-3 border-2 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-								placeholder="Enter your phone number"
-								onChange={(e) => handlePhone(e.target.value)}
-							/>
-						</div>
 					</div>
+
+					{/* Shipping Address */}
+					<Textarea
+						onChange={(e) => handleShippingAddress(e.target.value)}
+						rows={3}
+						className="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+						placeholder="Shipping Address"
+					/>
 				</div>
 			</div>
 		</>
