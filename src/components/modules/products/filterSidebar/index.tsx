@@ -72,9 +72,9 @@ export default function FilterSidebar() {
 
 	return (
 		<Suspense fallback={<LoadingPage />}>
-			<div className="p-8 bg-gray-50 rounded-lg shadow-lg">
+			<div className="p-8 bg-white/70 backdrop-blur-lg rounded-xl shadow-xl border border-rose-200">
 				<div className="flex justify-between items-center mb-8">
-					<h2 className="text-xl font-semibold text-primary">Filter</h2>
+					<h2 className="text-xl font-semibold tracking-wide">Filter</h2>
 					{searchParams.toString().length > 0 && (
 						<Button
 							onClick={() => {
@@ -83,7 +83,7 @@ export default function FilterSidebar() {
 								});
 							}}
 							size="sm"
-							className="bg-primary hover:bg-rose-700 text-white py-2 px-4 rounded-lg transition duration-300 ease-in-out"
+							className="bg-primary hover:bg-rose-700 text-white py-2 px-4 rounded-sm transition duration-300 ease-in-out"
 						>
 							Clear Filters
 						</Button>
@@ -92,11 +92,11 @@ export default function FilterSidebar() {
 
 				{/* Meal Provider */}
 				<div className="mb-8">
-					<h3 className="text-lg font-semibold mb-4 text-primary">
+					<h3 className="text-lg font-semibold text-primary mb-3 border-b-2 border-rose-200">
 						Meal Provider
 					</h3>
 					{!isLoading && (
-						<RadioGroup className="space-y-4">
+						<RadioGroup className="">
 							{providers?.map((provider, index) => (
 								<div key={index} className="flex items-center space-x-4">
 									<RadioGroupItem
@@ -121,11 +121,11 @@ export default function FilterSidebar() {
 
 				{/* Dietary Preferences */}
 				<div className="mb-8">
-					<h3 className="text-lg font-semibold mb-4 text-primary">
+					<h3 className="text-lg font-semibold text-primary mb-3 border-b-2 border-rose-200">
 						Dietary Preference
 					</h3>
 					{!isLoading && (
-						<RadioGroup className="space-y-4">
+						<RadioGroup className="">
 							{diet?.map((category, index) => (
 								<div key={index} className="flex items-center space-x-4">
 									<RadioGroupItem
@@ -150,9 +150,11 @@ export default function FilterSidebar() {
 
 				{/* Cuisine */}
 				<div className="mb-8">
-					<h3 className="text-lg font-semibold mb-4 text-primary">Cuisine</h3>
+					<h3 className="text-lg font-semibold text-primary mb-3 border-b-2 border-rose-200">
+						Cuisine
+					</h3>
 					{!isLoading && (
-						<RadioGroup className="space-y-4">
+						<RadioGroup className="">
 							{cusine?.map((brand, index) => (
 								<div key={index} className="flex items-center space-x-4">
 									<RadioGroupItem
@@ -172,11 +174,11 @@ export default function FilterSidebar() {
 
 				{/* Availability */}
 				<div className="mb-8">
-					<h3 className="text-lg font-semibold mb-4 text-primary">
+					<h3 className="text-lg font-semibold text-primary mb-3 border-b-2 border-rose-200">
 						Availability
 					</h3>
 					{!isLoading && (
-						<RadioGroup className="space-y-4">
+						<RadioGroup className="">
 							<div className="flex items-center space-x-4">
 								<RadioGroupItem
 									onClick={() => handleSearchQuery("availability", "Available")}
@@ -212,9 +214,11 @@ export default function FilterSidebar() {
 				</div>
 
 				{/* Rating */}
-				<div className="mb-8">
-					<h3 className="text-lg font-semibold mb-4 text-primary">Rating</h3>
-					<RadioGroup className="space-y-4">
+				<div className="mb-6">
+					<h3 className="text-lg font-semibold text-primary mb-3 border-b-2 border-rose-200">
+						Rating
+					</h3>
+					<RadioGroup className="">
 						{[5, 4, 3, 2, 1].map((rating) => (
 							<div key={rating} className="flex items-center space-x-4">
 								<RadioGroupItem

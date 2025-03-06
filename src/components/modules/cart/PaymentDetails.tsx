@@ -23,6 +23,9 @@ import { createOrder } from "@/services/cart";
 
 import { toast } from "sonner";
 
+import Payment from "@/assets/payment.png";
+import Image from "next/image";
+
 export default function PaymentDetails() {
 	const subTotal = useAppSelector(subTotalSelector);
 	const shippingCost = useAppSelector(shippingCostSelector);
@@ -99,9 +102,24 @@ export default function PaymentDetails() {
 				</div>
 			</div>
 
+			{/* ShurjoPay Payment Section */}
+			<div className="mt-6 p-4 bg-gradient-to-r from-rose-50 to-rose-300 text-gray-600 rounded-sm shadow-md">
+				<div className="flex items-center gap-3">
+					<Image src={Payment} alt="ShurjoPay" width={70} height={70} />
+					<div>
+						<h3 className="text-lg font-semibold">
+							Secure Payment with ShurjoPay
+						</h3>
+						<p className="text-sm text-gray-600">
+							Fast & reliable transactions with full security.
+						</p>
+					</div>
+				</div>
+			</div>
+
 			<Button
 				onClick={handleOrder}
-				className="w-full mt-6 py-3 text-lg font-medium bg-primary hover:bg-rose-700 rounded-lg transition"
+				className="w-full mt-6 py-3 text-lg font-medium bg-primary hover:bg-rose-700 rounded-sm transition"
 			>
 				Order With ShurjoPay
 			</Button>

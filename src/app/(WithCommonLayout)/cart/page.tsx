@@ -51,6 +51,28 @@ const CartPage = () => {
 				<MealCustomization />
 				<PaymentDetails />
 			</div>
+			<div className="bg-gradient-to-r from-rose-50 to-rose-200  p-6 rounded-sm shadow-lg my-6 border border-rose-700 relative overflow-hidden">
+				{/* Decorative Icons */}
+				<div className="absolute top-2 right-3 opacity-20 text-6xl">🚚</div>
+				<div className="absolute bottom-2 left-3 opacity-20 text-6xl">📦</div>
+
+				{/* Content */}
+				<h3 className="text-2xl font-bold flex items-center gap-2">
+					📢 Delivery Information
+				</h3>
+				<p className="mt-3 text-base flex items-center gap-2">
+					🕒 <span className="font-medium">Earliest Delivery Time:</span> Within{" "}
+					<strong>2-3 hours</strong> after placing your order.
+				</p>
+				<p className="mt-2 text-base flex items-center gap-2">
+					🚀 <span className="font-medium">Express Delivery:</span> Available
+					for select areas. Additional charges may apply.
+				</p>
+				<p className="mt-2 text-base flex items-center gap-2">
+					💡 <span className="font-medium">Pro Tip:</span> Place your order
+					before <strong>8 PM</strong> for same-day delivery!
+				</p>
+			</div>
 		</SavorlyContainer>
 	);
 };

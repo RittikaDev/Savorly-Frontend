@@ -30,13 +30,13 @@ export default function CartMealCard({ meal }: { meal: Cartmeal }) {
 	};
 
 	return (
-		<div className="bg-white rounded-md shadow-md border border-gray-200 p-4 flex items-center gap-4">
+		<div className="bg-gradient-to-r from-gray-50 to-white rounded-lg shadow-lg border border-gray-300 p-5 flex items-center gap-5 hover:shadow-xl transition-all duration-300">
 			{/* Meal Image */}
-			<div className="w-24 h-24 rounded-md overflow-hidden">
+			<div className="w-28 h-28 rounded-lg overflow-hidden shadow-md">
 				<Image
 					src={meal?.image?.[0] || Empty}
-					height={100}
-					width={100}
+					height={112}
+					width={112}
 					alt={meal?.name || "meal"}
 					className="w-full h-full object-cover"
 				/>
@@ -44,20 +44,26 @@ export default function CartMealCard({ meal }: { meal: Cartmeal }) {
 
 			{/* Meal Details */}
 			<div className="flex flex-col flex-grow">
-				<h1 className="text-lg font-semibold">{meal?.name}</h1>
-				<p className="text-gray-600 text-sm">{meal?.description}</p>
+				<h1 className="text-lg font-bold text-gray-900">{meal?.name}</h1>
+				<p className="text-gray-600 text-sm mt-1">{meal?.description}</p>
 
-				<div className="text-xs text-gray-500 mt-1 flex flex-wrap gap-x-3">
-					<p>
-						<span className="font-medium">Cuisine:</span> {meal?.cuisineType}
+				<div className="text-xs text-gray-500 mt-2 flex flex-wrap gap-3">
+					<p className="flex items-center gap-1">
+						<span className="font-medium text-gray-700">🍽 Cuisine:</span>{" "}
+						{meal?.cuisineType}
 					</p>
-					<p>
-						<span className="font-medium">Size:</span> {meal?.portionSize}
+					<p className="flex items-center gap-1">
+						<span className="font-medium text-gray-700">📏 Size:</span>{" "}
+						{meal?.portionSize}
 					</p>
-					<p>
-						<span className="font-medium">Stock:</span>
+					<p className="flex items-center gap-1">
+						<span className="font-medium text-gray-700">📦 Stock:</span>
 						<span
-							className={meal?.availability ? "text-green-600" : "text-red-600"}
+							className={
+								meal?.availability
+									? "text-green-600 font-medium"
+									: "text-red-600 font-medium"
+							}
 						>
 							{meal?.availability ? " Available" : " Out of Stock"}
 						</span>
@@ -67,14 +73,14 @@ export default function CartMealCard({ meal }: { meal: Cartmeal }) {
 
 			{/* Price & Quantity Controls */}
 			<div className="flex flex-col items-end">
-				<h2 className="text-md font-semibold">
+				<h2 className="text-lg font-semibold text-gray-900">
 					{currencyFormatter(meal.price)}
 				</h2>
 
-				<div className="flex items-center gap-2 mt-1">
+				<div className="flex items-center gap-3 mt-2">
 					<Button
 						onClick={() => handleDecrementQuantity(meal._id!)}
-						className="size-6 p-1"
+						className="size-8 p-1 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300"
 					>
 						<Minus />
 					</Button>
@@ -83,16 +89,16 @@ export default function CartMealCard({ meal }: { meal: Cartmeal }) {
 
 					<Button
 						onClick={() => handleIncrementQuantity(meal._id!)}
-						className="size-6 p-1"
+						className="size-8 p-1 bg-primary text-white rounded-full hover:bg-rose-700"
 					>
 						<Plus />
 					</Button>
 
 					<Button
 						onClick={() => handleRemoveMeal(meal._id!)}
-						className="size-6 p-2 border border-red-300"
+						className="size-8 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-all"
 					>
-						<Trash className="text-white" />
+						<Trash />
 					</Button>
 				</div>
 			</div>
