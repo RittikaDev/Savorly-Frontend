@@ -15,7 +15,7 @@ const CartPage = () => {
 	return (
 		<SavorlyContainer>
 			{/* Progress Bar */}
-			<div className="flex items-center justify-between mb-6 relative">
+			<div className="hidden lg:flex items-center justify-between mb-6 relative">
 				{steps.map((step, index) => (
 					<div
 						key={index}

@@ -41,7 +41,7 @@ export default function Address() {
 
 	return (
 		<>
-			<div className="border-2 border-white bg-background brightness-105 rounded-sm col-span-4 p-6">
+			<div className="border-2 border-white bg-background brightness-105 rounded-sm col-span-12 lg:col-span-4 p-6">
 				<div className="bg-white rounded-sm shadow-md border border-gray-200 p-4 flex flex-col gap-4">
 					<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-primary text-transparent bg-clip-text">
 						Address Details

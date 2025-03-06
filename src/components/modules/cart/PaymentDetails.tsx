@@ -77,7 +77,7 @@ export default function PaymentDetails() {
 	};
 
 	return (
-		<div className="border border-gray-300 bg-white shadow-sm rounded-sm p-6 col-span-4">
+		<div className="border border-gray-300 bg-white shadow-sm rounded-sm p-6 lg:col-span-4 col-span-12">
 			<h2 className="text-2xl font-bold bg-gradient-to-r from-rose-400 to-primary text-transparent bg-clip-text mb-6">
 				Order Summary
 			</h2>

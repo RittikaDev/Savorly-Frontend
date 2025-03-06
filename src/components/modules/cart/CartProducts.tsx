@@ -10,7 +10,7 @@ export default function CartProducts() {
 	const meals = useAppSelector(orderedMealsSelector);
 
 	return (
-		<div className="border border-gray-300 bg-white shadow-lg rounded-sm col-span-8 h-full row-span-3 p-8 space-y-6">
+		<div className="border border-gray-300 bg-white shadow-lg rounded-sm col-span-12 lg:col-span-8  h-full row-span-3 p-8 space-y-6">
 			{meals.length === 0 && (
 				<div className="flex flex-col items-center justify-center bg-gradient-to-r from-rose-50 via-rose-100 to-rose-200 p-8 rounded-xl shadow-xl">
 					{/* Title */}
